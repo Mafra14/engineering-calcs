@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section Properties Calculator | Moment of Inertia & Section Modulus</title>
+    <meta name="description" content="Calculate moment of inertia, section modulus, centroid, and area for standard shapes including I-beams, rectangles, circles, and custom sections.">
+    <meta name="keywords" content="section properties calculator, moment of inertia calculator, section modulus, centroid calculator">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="calculator-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation same as beam-calculator.html -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html" class="active"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="inertia-calculator.html"><i class="fas fa-sync-alt"></i> Mass Moment of Inertia</a>
+                        <a href="torque-calculator.html"><i class="fas fa-redo"></i> Torque & Power</a>
+                        <a href="gear-calculator.html"><i class="fas fa-cog"></i> Gear Design</a>
+                        <a href="spring-calculator.html"><i class="fas fa-compress"></i> Spring Design</a>
+                        <a href="thermal-calculator.html"><i class="fas fa-thermometer-half"></i> Thermal Expansion</a>
+                        <a href="fluid-calculator.html"><i class="fas fa-tint"></i> Fluid Mechanics</a>
+                        <a href="unit-converter.html"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Section Properties Calculator</span>
+                </div>
+                <h1>Section Properties Calculator</h1>
+                <p>Calculate moment of inertia, section modulus, centroid, and area for standard shapes including I-beams, rectangles, circles, and custom sections.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="calculator-layout">
+                <div class="calculator-inputs">
+                    <div class="input-section">
+                        <h2><i class="fas fa-shapes"></i> Cross Section Shape</h2>
+                        
+                        <div class="shape-selector">
+                            <div class="shape-option active" data-shape="rectangle" onclick="selectShape('rectangle')">
+                                <div class="shape-icon"><i class="far fa-square"></i></div>
+                                <span>Rectangle</span>
+                            </div>
+                            <div class="shape-option" data-shape="circle" onclick="selectShape('circle')">
+                                <div class="shape-icon"><i class="far fa-circle"></i></div>
+                                <span>Circle</span>
+                            </div>
+                            <div class="shape-option" data-shape="hollow-circle" onclick="selectShape('hollow-circle')">
+                                <div class="shape-icon"><i class="fas fa-circle-notch"></i></div>
+                                <span>Hollow</span>
+                            </div>
+                            <div class="shape-option" data-shape="i-beam" onclick="selectShape('i-beam')">
+                                <div class="shape-icon">I</div>
+                                <span>I-Beam</span>
+                            </div>
+                            <div class="shape-option" data-shape="t-section" onclick="selectShape('t-section')">
+                                <div class="shape-icon">T</div>
+                                <span>T-Section</span>
+                            </div>
+                            <div class="shape-option" data-shape="channel" onclick="selectShape('channel')">
+                                <div class="shape-icon">C</div>
+                                <span>Channel</span>
+                            </div>
+                        </div>
+
+                        <!-- Rectangle Inputs -->
+                        <div id="rectangle-inputs" class="shape-inputs active">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="rect-b">Width (b)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="rect-b" value="50" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="rect-h">Height (h)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="rect-h" value="100" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Circle Inputs -->
+                        <div id="circle-inputs" class="shape-inputs">
+                            <div class="input-group">
+                                <label for="circle-d">Diameter (d)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="circle-d" value="50" step="0.1">
+                                    <span class="unit-label">mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hollow Circle Inputs -->
+                        <div id="hollow-circle-inputs" class="shape-inputs">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="hollow-D">Outer Diameter (D)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="hollow-D" value="60" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="hollow-d">Inner Diameter (d)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="hollow-d" value="40" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- I-Beam Inputs -->
+                        <div id="i-beam-inputs" class="shape-inputs">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="ibeam-bf">Flange Width (bf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-bf" value="100" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="ibeam-tf">Flange Thick (tf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-tf" value="10" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="ibeam-h">Total Height (h)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-h" value="100" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="ibeam-tw">Web Thick (tw)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-tw" value="6" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- T-Section Inputs -->
+                        <div id="t-section-inputs" class="shape-inputs">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="tsection-bf">Flange Width (bf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="tsection-bf" value="80" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="tsection-tf">Flange Thick (tf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="tsection-tf" value="10" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="tsection-h">Total Height (h)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="tsection-h" value="100" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="tsection-tw">Web Thick (tw)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="tsection-tw" value="8" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Channel Inputs -->
+                        <div id="channel-inputs" class="shape-inputs">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="channel-bf">Flange Width (bf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="channel-bf" value="50" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="channel-tf">Flange Thick (tf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="channel-tf" value="8" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="channel-h">Total Height (h)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="channel-h" value="100" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="channel-tw">Web Thick (tw)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="channel-tw" value="6" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="calc-btn primary" onclick="calculateSection()">
+                            <i class="fas fa-calculator"></i> Calculate Properties
+                        </button>
+                    </div>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="results-tabs">
+                        <button class="tab-btn active" onclick="switchTab('results')">Results</button>
+                        <button class="tab-btn" onclick="switchTab('diagram')">Section View</button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-results">
+                        <div class="section-visualization">
+                            <canvas id="section-canvas" width="400" height="300"></canvas>
+                            <div class="centroid-marker">
+                                <i class="fas fa-crosshairs"></i>
+                                <span>Centroid</span>
+                            </div>
+                        </div>
+
+                        <div class="results-grid properties-grid">
+                            <div class="result-card large">
+                                <div class="result-icon"><i class="fas fa-expand"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Area (A)</span>
+                                    <span class="result-value" id="result-area">-</span>
+                                    <span class="result-unit">mm²</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card large">
+                                <div class="result-icon"><i class="fas fa-arrows-alt-h"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Centroid X (Cx)</span>
+                                    <span class="result-value" id="result-cx">-</span>
+                                    <span class="result-unit">mm</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card large">
+                                <div class="result-icon"><i class="fas fa-arrows-alt-v"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Centroid Y (Cy)</span>
+                                    <span class="result-value" id="result-cy">-</span>
+                                    <span class="result-unit">mm</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Ixx</span>
+                                    <span class="result-value" id="result-ixx">-</span>
+                                    <span class="result-unit">mm⁴</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Iyy</span>
+                                    <span class="result-value" id="result-iyy">-</span>
+                                    <span class="result-unit">mm⁴</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon"><i class="fas fa-ruler-combined"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Zxx</span>
+                                    <span class="result-value" id="result-zxx">-</span>
+                                    <span class="result-unit">mm³</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon"><i class="fas fa-ruler-combined"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">Zyy</span>
+                                    <span class="result-value" id="result-zyy">-</span>
+                                    <span class="result-unit">mm³</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon"><i class="fas fa-bullseye"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">rxx</span>
+                                    <span class="result-value" id="result-rxx">-</span>
+                                    <span class="result-unit">mm</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon"><i class="fas fa-bullseye"></i></div>
+                                <div class="result-content">
+                                    <span class="result-label">ryy</span>
+                                    <span class="result-value" id="result-ryy">-</span>
+                                    <span class="result-unit">mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="export-section">
+                            <h3>Export Results</h3>
+                            <div class="export-buttons">
+                                <button onclick="exportCSV()" class="export-btn"><i class="fas fa-file-csv"></i> CSV</button>
+                                <button onclick="copyToClipboard()" class="export-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-diagram">
+                        <div class="diagram-large">
+                            <canvas id="section-diagram" width="700" height="400"></canvas>
+                            <div class="diagram-annotations">
+                                <p><strong>Dimensions shown:</strong></p>
+                                <p id="diagram-dimensions">Calculate to see section view</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+    <script src="section-properties.js"></script>
+</body>
+</html>

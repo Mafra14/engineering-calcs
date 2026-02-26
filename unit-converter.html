@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Unit Converter | SI to Imperial Conversion</title>
+    <meta name="description" content="Free engineering unit converter. Convert between SI and Imperial units for length, force, pressure, power, temperature, and more.">
+    <meta name="keywords" content="unit converter, engineering units, si to imperial, pressure converter, force converter">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="unit-converter.html" class="active"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Unit Converter</span>
+                </div>
+                <h1>Engineering Unit Converter</h1>
+                <p>Convert between SI and Imperial units for all engineering quantities. Real-time conversion as you type.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="converter-fullpage">
+                <div class="converter-category-tabs">
+                    <button class="cat-tab active" data-category="length"><i class="fas fa-ruler"></i> Length</button>
+                    <button class="cat-tab" data-category="force"><i class="fas fa-weight-hanging"></i> Force</button>
+                    <button class="cat-tab" data-category="pressure"><i class="fas fa-compress"></i> Pressure</button>
+                    <button class="cat-tab" data-category="power"><i class="fas fa-bolt"></i> Power</button>
+                    <button class="cat-tab" data-category="torque"><i class="fas fa-redo"></i> Torque</button>
+                    <button class="cat-tab" data-category="temperature"><i class="fas fa-thermometer-half"></i> Temperature</button>
+                    <button class="cat-tab" data-category="area"><i class="fas fa-expand"></i> Area</button>
+                    <button class="cat-tab" data-category="volume"><i class="fas fa-cube"></i> Volume</button>
+                </div>
+
+                <div class="converter-main">
+                    <div class="converter-display">
+                        <div class="input-section-converter">
+                            <input type="number" id="convert-input" value="1" placeholder="Enter value">
+                            <select id="convert-from">
+                                <option value="m">meters (m)</option>
+                                <option value="mm">millimeters (mm)</option>
+                                <option value="km">kilometers (km)</option>
+                                <option value="ft">feet (ft)</option>
+                                <option value="in">inches (in)</option>
+                                <option value="yd">yards (yd)</option>
+                                <option value="mi">miles (mi)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="equals-sign"><i class="fas fa-equals"></i></div>
+                        
+                        <div class="output-section-converter">
+                            <input type="text" id="convert-output" readonly value="3.28084">
+                            <select id="convert-to">
+                                <option value="ft">feet (ft)</option>
+                                <option value="m">meters (m)</option>
+                                <option value="mm">millimeters (mm)</option>
+                                <option value="km">kilometers (km)</option>
+                                <option value="in">inches (in)</option>
+                                <option value="yd">yards (yd)</option>
+                                <option value="mi">miles (mi)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="quick-conversions">
+                        <h3>Common Conversions</h3>
+                        <div class="quick-grid" id="quick-conversions">
+                            <div class="quick-item"><span>1 m</span><span>= 3.281 ft</span></div>
+                            <div class="quick-item"><span>1 ft</span><span>= 0.305 m</span></div>
+                            <div class="quick-item"><span>1 in</span><span>= 25.4 mm</span></div>
+                            <div class="quick-item"><span>1 km</span><span>= 0.621 mi</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+    <script>
+        const conversions = {
+            length: {
+                units: ['m', 'mm', 'cm', 'km', 'ft', 'in', 'yd', 'mi'],
+                labels: ['meters (m)', 'millimeters (mm)', 'centimeters (cm)', 'kilometers (km)', 'feet (ft)', 'inches (in)', 'yards (yd)', 'miles (mi)'],
+                toBase: { m: 1, mm: 0.001, cm: 0.01, km: 1000, ft: 0.3048, in: 0.0254, yd: 0.9144, mi: 1609.34 }
+            },
+            force: {
+                units: ['N', 'kN', 'MN', 'lbf', 'kgf', 'tonf'],
+                labels: ['Newtons (N)', 'kilonewtons (kN)', 'meganewtons (MN)', 'pounds-force (lbf)', 'kilogram-force (kgf)', 'ton-force (tonf)'],
+                toBase: { N: 1, kN: 1000, MN: 1000000, lbf: 4.44822, kgf: 9.80665, tonf: 9806.65 }
+            },
+            pressure: {
+                units: ['Pa', 'kPa', 'MPa', 'GPa', 'bar', 'psi', 'ksi', 'atm'],
+                labels: ['Pascals (Pa)', 'kilopascals (kPa)', 'megapascals (MPa)', 'gigapascals (GPa)', 'bar', 'psi', 'ksi', 'atmospheres (atm)'],
+                toBase: { Pa: 1, kPa: 1000, MPa: 1000000, GPa: 1000000000, bar: 100000, psi: 6894.76, ksi: 6894760, atm: 101325 }
+            },
+            power: {
+                units: ['W', 'kW', 'MW', 'hp', 'hp-m', 'Btu/h', 'ft-lbf/s'],
+                labels: ['Watts (W)', 'kilowatts (kW)', 'megawatts (MW)', 'horsepower (hp)', 'metric hp', 'BTU/hour', 'ft-lbf/s'],
+                toBase: { W: 1, kW: 1000, MW: 1000000, hp: 745.7, 'hp-m': 735.5, 'Btu/h': 0.293071, 'ft-lbf/s': 1.35582 }
+            },
+            torque: {
+                units: ['Nm', 'Nmm', 'kNm', 'ft-lbf', 'in-lbf', 'kgf-m'],
+                labels: ['Newton-meters (Nm)', 'Newton-millimeters (Nmm)', 'kilonewton-meters (kNm)', 'foot-pounds (ft-lbf)', 'inch-pounds (in-lbf)', 'kgf-meters (kgf-m)'],
+                toBase: { Nm: 1, Nmm: 0.001, kNm: 1000, 'ft-lbf': 1.35582, 'in-lbf': 0.112985, 'kgf-m': 9.80665 }
+            },
+            temperature: {
+                units: ['C', 'F', 'K', 'R'],
+                labels: ['Celsius (°C)', 'Fahrenheit (°F)', 'Kelvin (K)', 'Rankine (°R)']
+            },
+            area: {
+                units: ['m2', 'cm2', 'mm2', 'ft2', 'in2', 'ac', 'ha'],
+                labels: ['square meters (m²)', 'square centimeters (cm²)', 'square millimeters (mm²)', 'square feet (ft²)', 'square inches (in²)', 'acres (ac)', 'hectares (ha)'],
+                toBase: { m2: 1, cm2: 0.0001, mm2: 0.000001, ft2: 0.092903, in2: 0.00064516, ac: 4046.86, ha: 10000 }
+            },
+            volume: {
+                units: ['m3', 'L', 'mL', 'gal', 'qt', 'ft3', 'in3'],
+                labels: ['cubic meters (m³)', 'liters (L)', 'milliliters (mL)', 'gallons (gal)', 'quarts (qt)', 'cubic feet (ft³)', 'cubic inches (in³)'],
+                toBase: { m3: 1, L: 0.001, mL: 0.000001, gal: 0.00378541, qt: 0.000946353, ft3: 0.0283168, in3: 0.000016387 }
+            }
+        };
+
+        let currentCategory = 'length';
+
+        function updateCategory(category) {
+            currentCategory = category;
+            const data = conversions[category];
+            const fromSelect = document.getElementById('convert-from');
+            const toSelect = document.getElementById('convert-to');
+            
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+            
+            data.labels.forEach((label, i) => {
+                fromSelect.add(new Option(label, data.units[i]));
+                toSelect.add(new Option(label, data.units[i]));
+            });
+            
+            // Set defaults
+            if (category === 'length') {
+                fromSelect.value = 'm';
+                toSelect.value = 'ft';
+            } else if (category === 'force') {
+                fromSelect.value = 'N';
+                toSelect.value = 'lbf';
+            } else if (category === 'pressure') {
+                fromSelect.value = 'MPa';
+                toSelect.value = 'ksi';
+            } else if (category === 'power') {
+                fromSelect.value = 'kW';
+                toSelect.value = 'hp';
+            }
+            
+            updateQuickConversions();
+            convert();
+        }
+
+        function convert() {
+            const input = parseFloat(document.getElementById('convert-input').value) || 0;
+            const from = document.getElementById('convert-from').value;
+            const to = document.getElementById('convert-to').value;
+            let result;
+            
+            if (currentCategory === 'temperature') {
+                result = convertTemperature(input, from, to);
+            } else {
+                const toBase = conversions[currentCategory].toBase;
+                const baseValue = input * toBase[from];
+                result = baseValue / toBase[to];
+            }
+            
+            document.getElementById('convert-output').value = result.toPrecision(6).replace(/\.?0+$/, '');
+        }
+
+        function convertTemperature(val, from, to) {
+            let celsius;
+            if (from === 'C') celsius = val;
+            else if (from === 'F') celsius = (val - 32) * 5/9;
+            else if (from === 'K') celsius = val - 273.15;
+            else if (from === 'R') celsius = (val - 491.67) * 5/9;
+            
+            if (to === 'C') return celsius;
+            else if (to === 'F') return (celsius * 9/5) + 32;
+            else if (to === 'K') return celsius + 273.15;
+            else if (to === 'R') return (celsius + 273.15) * 9/5;
+        }
+
+        function updateQuickConversions() {
+            const quickDiv = document.getElementById('quick-conversions');
+            const examples = {
+                length: [['1 m', '3.281 ft'], ['1 ft', '0.305 m'], ['1 in', '25.4 mm'], ['1 km', '0.621 mi']],
+                force: [['1 N', '0.225 lbf'], ['1 lbf', '4.448 N'], ['1 kN', '224.8 lbf']],
+                pressure: [['1 MPa', '145.0 psi'], ['1 psi', '6.895 kPa'], ['1 bar', '14.5 psi']],
+                power: [['1 kW', '1.341 hp'], ['1 hp', '0.746 kW'], ['1 MW', '1341 hp']],
+                torque: [['1 Nm', '0.738 ft-lbf'], ['1 ft-lbf', '1.356 Nm']],
+                temperature: [['0°C', '32°F'], ['100°C', '212°F'], ['0K', '-273.15°C']],
+                area: [['1 m²', '10.764 ft²'], ['1 ft²', '0.0929 m²'], ['1 ac', '4047 m²']],
+                volume: [['1 L', '0.264 gal'], ['1 gal', '3.785 L'], ['1 m³', '264.2 gal']]
+            };
+            
+            const items = examples[currentCategory] || examples.length;
+            quickDiv.innerHTML = items.map(item => 
+                `<div class="quick-item"><span>${item[0]}</span><span>= ${item[1]}</span></div>`
+            ).join('');
+        }
+
+        // Event listeners
+        document.querySelectorAll('.cat-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                updateCategory(tab.dataset.category);
+            });
+        });
+
+        document.getElementById('convert-input').addEventListener('input', convert);
+        document.getElementById('convert-from').addEventListener('change', convert);
+        document.getElementById('convert-to').addEventListener('change', convert);
+
+        // Initialize
+        updateCategory('length');
+    </script>
+</body>
+</html>

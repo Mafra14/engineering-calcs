@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Analysis Calculator | Normal, Shear & Bending Stress</title>
+    <meta name="description" content="Calculate normal stress, shear stress, bending stress, torsional stress, and factor of safety for mechanical engineering applications.">
+    <meta name="keywords" content="stress calculator, normal stress, shear stress, bending stress, factor of safety">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html" class="active"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Stress Analysis Calculator</span>
+                </div>
+                <h1>Stress Analysis Calculator</h1>
+                <p>Calculate normal stress, shear stress, bending stress, and factor of safety for various loading conditions.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="calculator-layout">
+                <div class="calculator-inputs">
+                    <div class="input-section">
+                        <h2><i class="fas fa-compress-arrows-alt"></i> Loading Type</h2>
+                        
+                        <div class="input-group">
+                            <label>Stress Type</label>
+                            <div class="stress-type-selector">
+                                <button class="stress-type-btn active" data-type="axial">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                    <span>Axial</span>
+                                </button>
+                                <button class="stress-type-btn" data-type="bending">
+                                    <i class="fas fa-redo"></i>
+                                    <span>Bending</span>
+                                </button>
+                                <button class="stress-type-btn" data-type="torsion">
+                                    <i class="fas fa-sync-alt"></i>
+                                    <span>Torsion</span>
+                                </button>
+                                <button class="stress-type-btn" data-type="combined">
+                                    <i class="fas fa-compress"></i>
+                                    <span>Combined</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="axial-inputs" class="stress-inputs active">
+                            <div class="input-group">
+                                <label for="axial-force">Axial Force (F)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="axial-force" value="10000">
+                                    <select id="axial-force-unit">
+                                        <option value="N">N</option>
+                                        <option value="kN">kN</option>
+                                        <option value="lbf">lbf</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="axial-area">Cross-Sectional Area (A)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="axial-area" value="100">
+                                    <select id="axial-area-unit">
+                                        <option value="mm2">mm²</option>
+                                        <option value="m2">m²</option>
+                                        <option value="in2">in²</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="bending-inputs" class="stress-inputs">
+                            <div class="input-group">
+                                <label for="bending-moment">Bending Moment (M)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="bending-moment" value="5000">
+                                    <select id="bending-moment-unit">
+                                        <option value="Nm">N·m</option>
+                                        <option value="Nmm">N·mm</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="section-modulus">Section Modulus (Z)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="section-modulus" value="1000">
+                                    <span class="unit-label">mm³</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="torsion-inputs" class="stress-inputs">
+                            <div class="input-group">
+                                <label for="torque">Torque (T)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="torque" value="1000">
+                                    <select id="torque-unit">
+                                        <option value="Nm">N·m</option>
+                                        <option value="Nmm">N·mm</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="polar-moment">Polar Moment (J)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="polar-moment" value="10000">
+                                    <span class="unit-label">mm⁴</span>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="torsion-radius">Outer Radius (r)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="torsion-radius" value="25">
+                                    <span class="unit-label">mm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h2><i class="fas fa-shield-alt"></i> Material Strength</h2>
+                        <div class="input-group">
+                            <label for="yield-strength">Yield Strength (σy)</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="yield-strength" value="250">
+                                <span class="unit-label">MPa</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="ultimate-strength">Ultimate Strength (σu)</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="ultimate-strength" value="400">
+                                <span class="unit-label">MPa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="calc-btn primary" onclick="calculateStress()">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="results-tabs">
+                        <button class="tab-btn active">Results</button>
+                    </div>
+                    
+                    <div class="results-grid">
+                        <div class="result-card large">
+                            <div class="result-icon stress">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                            </div>
+                            <div class="result-content">
+                                <span class="result-label">Calculated Stress</span>
+                                <span class="result-value" id="calculated-stress">-</span>
+                                <span class="result-unit">MPa</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="result-content">
+                                <span class="result-label">Factor of Safety</span>
+                                <span class="result-value" id="fos">-</span>
+                                <span class="result-status" id="safety-status"></span>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="result-content">
+                                <span class="result-label">Stress Ratio</span>
+                                <span class="result-value" id="stress-ratio">-</span>
+                                <span class="result-unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        <h4><i class="fas fa-square-root-alt"></i> Formula Used</h4>
+                        <p id="stress-formula">σ = F / A</p>
+                        <p class="formula-desc">Normal stress for axial loading</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+    <script>
+        // Stress calculator JavaScript
+        function calculateStress() {
+            const stressType = document.querySelector('.stress-type-btn.active').dataset.type;
+            const yieldStrength = parseFloat(document.getElementById('yield-strength').value);
+            
+            let stress = 0;
+            let formula = '';
+            
+            if (stressType === 'axial') {
+                const force = parseFloat(document.getElementById('axial-force').value);
+                const area = parseFloat(document.getElementById('axial-area').value);
+                stress = force / area;
+                formula = 'σ = F / A';
+            } else if (stressType === 'bending') {
+                const moment = parseFloat(document.getElementById('bending-moment').value);
+                const z = parseFloat(document.getElementById('section-modulus').value);
+                stress = moment / z;
+                formula = 'σ = M / Z';
+            } else if (stressType === 'torsion') {
+                const torque = parseFloat(document.getElementById('torque').value);
+                const j = parseFloat(document.getElementById('polar-moment').value);
+                const r = parseFloat(document.getElementById('torsion-radius').value);
+                stress = (torque * r) / j;
+                formula = 'τ = T·r / J';
+            }
+            
+            const fos = yieldStrength / stress;
+            const ratio = (stress / yieldStrength) * 100;
+            
+            document.getElementById('calculated-stress').textContent = stress.toFixed(2);
+            document.getElementById('fos').textContent = fos.toFixed(2);
+            document.getElementById('stress-ratio').textContent = ratio.toFixed(1);
+            document.getElementById('stress-formula').textContent = formula;
+            
+            const statusEl = document.getElementById('safety-status');
+            if (fos >= 2) {
+                statusEl.textContent = 'Safe';
+                statusEl.className = 'result-status safe';
+            } else if (fos >= 1.5) {
+                statusEl.textContent = 'Caution';
+                statusEl.className = 'result-status warning';
+            } else {
+                statusEl.textContent = 'Unsafe';
+                statusEl.className = 'result-status danger';
+            }
+        }
+        
+        // Stress type selector
+        document.querySelectorAll('.stress-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.stress-type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const type = btn.dataset.type;
+                document.querySelectorAll('.stress-inputs').forEach(el => el.classList.remove('active'));
+                document.getElementById(type + '-inputs').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

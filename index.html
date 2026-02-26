@@ -3,535 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EngineeringCalc | Professional Engineering Calculators</title>
+    <title>EngineeringCalc | Free Engineering Calculators for Students & Professionals</title>
+    <meta name="description" content="Free professional engineering calculators. Beam deflection, stress analysis, section properties, unit converters, and more. Built for mechanical engineers and students.">
+    <meta name="keywords" content="engineering calculator, beam deflection calculator, stress calculator, mechanical engineering, free engineering tools">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand">
+        <a href="index.html" class="nav-brand">
             <i class="fas fa-drafting-compass"></i>
             <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="inertia-calculator.html"><i class="fas fa-sync-alt"></i> Mass Moment of Inertia</a>
+                        <a href="torque-calculator.html"><i class="fas fa-redo"></i> Torque & Power</a>
+                        <a href="gear-calculator.html"><i class="fas fa-cog"></i> Gear Design</a>
+                        <a href="spring-calculator.html"><i class="fas fa-compress"></i> Spring Design</a>
+                        <a href="thermal-calculator.html"><i class="fas fa-thermometer-half"></i> Thermal Expansion</a>
+                        <a href="fluid-calculator.html"><i class="fas fa-tint"></i> Fluid Mechanics</a>
+                        <a href="unit-converter.html"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
-        <ul class="nav-links">
-            <li><a href="#beam" class="active">Beam Analysis</a></li>
-            <li><a href="#stress">Stress</a></li>
-            <li><a href="#units">Unit Converter</a></li>
-            <li><a href="#materials">Materials</a></li>
-        </ul>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
             <h1>Professional Engineering Calculators</h1>
-            <p>Accurate, reliable tools for mechanical engineers and students. Free to use, built for precision.</p>
+            <p>Accurate, reliable tools for mechanical engineers and students. Free forever, no signup required.</p>
+            <div class="hero-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="calculatorSearch" placeholder="Search calculators... (e.g., 'beam deflection')">
+            </div>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number">5+</span>
+                    <span class="stat-number">10+</span>
                     <span class="stat-label">Calculators</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50k+</span>
+                    <span class="stat-label">Calculations</span>
                 </div>
                 <div class="stat">
                     <span class="stat-number">100%</span>
                     <span class="stat-label">Free</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">ASTM</span>
-                    <span class="stat-label">Standards</span>
                 </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Beam Analysis Calculator -->
-        <section id="beam" class="calculator-section">
-            <div class="section-header">
-                <div class="section-icon">
+        <section id="calculators" class="calculators-section">
+            <div class="section-header-center">
+                <h2>All Engineering Calculators</h2>
+                <p>Choose from our collection of professional engineering tools</p>
+            </div>
+
+            <div class="calculator-grid">
+                <a href="beam-calculator.html" class="calculator-card featured" data-keywords="beam deflection bending moment stress simply supported cantilever">
+                    <div class="card-icon">
+                        <i class="fas fa-ruler-horizontal"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Beam Deflection Calculator</h3>
+                        <p>Calculate deflection, slope, reactions, and bending moment for various beam types with multiple loads. Visual diagrams included.</p>
+                        <div class="card-tags">
+                            <span class="tag">Most Popular</span>
+                            <span class="tag">Visual</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Multiple supports</span>
+                            <span><i class="fas fa-check"></i> Various load types</span>
+                            <span><i class="fas fa-check"></i> Graphs & diagrams</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="stress-calculator.html" class="calculator-card" data-keywords="stress strain normal shear bending axial torsion">
+                    <div class="card-icon stress">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Stress Analysis Calculator</h3>
+                        <p>Calculate normal stress, shear stress, bending stress, and factor of safety for different loading conditions.</p>
+                        <div class="card-tags">
+                            <span class="tag">Safety</span>
+                            <span class="tag">Materials</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Axial, bending, torsion</span>
+                            <span><i class="fas fa-check"></i> Factor of safety</span>
+                            <span><i class="fas fa-check"></i> Von Mises stress</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="section-properties.html" class="calculator-card" data-keywords="section properties moment of inertia area centroid section modulus">
+                    <div class="card-icon">
+                        <i class="fas fa-shapes"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Section Properties Calculator</h3>
+                        <p>Calculate area, centroid, moment of inertia, section modulus, and radius of gyration for standard and custom shapes.</p>
+                        <div class="card-tags">
+                            <span class="tag">Geometry</span>
+                            <span class="tag">Reference</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Standard shapes</span>
+                            <span><i class="fas fa-check"></i> Custom profiles</span>
+                            <span><i class="fas fa-check"></i> I, Z, r calculations</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="inertia-calculator.html" class="calculator-card" data-keywords="mass moment of inertia rotational dynamics flywheel">
+                    <div class="card-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Mass Moment of Inertia</h3>
+                        <p>Calculate mass moment of inertia for rotating bodies, disks, cylinders, spheres, and custom shapes.</p>
+                        <div class="card-tags">
+                            <span class="tag">Dynamics</span>
+                            <span class="tag">Rotation</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Common shapes</span>
+                            <span><i class="fas fa-check"></i> Parallel axis theorem</span>
+                            <span><i class="fas fa-check"></i> Radius of gyration</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="torque-calculator.html" class="calculator-card" data-keywords="torque power rpm shaft design">
+                    <div class="card-icon">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Torque & Power Calculator</h3>
+                        <p>Convert between torque, power, and RPM. Calculate shaft diameter and shear stress for power transmission.</p>
+                        <div class="card-tags">
+                            <span class="tag">Power</span>
+                            <span class="tag">Shaft</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Power-Torque-RPM</span>
+                            <span><i class="fas fa-check"></i> Shaft sizing</span>
+                            <span><i class="fas fa-check"></i> Efficiency</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="gear-calculator.html" class="calculator-card" data-keywords="gear ratio spur gear pitch diameter module">
+                    <div class="card-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Gear Design Calculator</h3>
+                        <p>Calculate gear ratios, pitch diameter, module, and contact ratio for spur and helical gears.</p>
+                        <div class="card-tags">
+                            <span class="tag">Gears</span>
+                            <span class="tag">Mechanism</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Gear ratios</span>
+                            <span><i class="fas fa-check"></i> Speed & torque</span>
+                            <span><i class="fas fa-check"></i> Center distance</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="spring-calculator.html" class="calculator-card" data-keywords="spring constant stiffness deflection coil spring">
+                    <div class="card-icon">
+                        <i class="fas fa-compress"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Spring Design Calculator</h3>
+                        <p>Design compression, extension, and torsion springs. Calculate spring rate, max load, and safety factor.</p>
+                        <div class="card-tags">
+                            <span class="tag">Springs</span>
+                            <span class="tag">Design</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Compression/extension</span>
+                            <span><i class="fas fa-check"></i> Spring rate (k)</span>
+                            <span><i class="fas fa-check"></i> Stress analysis</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="thermal-calculator.html" class="calculator-card" data-keywords="thermal expansion contraction heat transfer">
+                    <div class="card-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Thermal Expansion Calculator</h3>
+                        <p>Calculate linear and volumetric thermal expansion for different materials and temperature changes.</p>
+                        <div class="card-tags">
+                            <span class="tag">Thermal</span>
+                            <span class="tag">Temperature</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Coefficient lookup</span>
+                            <span><i class="fas fa-check"></i> Linear & volumetric</span>
+                            <span><i class="fas fa-check"></i> Stress from constraint</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="fluid-calculator.html" class="calculator-card" data-keywords="fluid mechanics reynolds number bernoulli pressure drop">
+                    <div class="card-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fluid Mechanics Calculator</h3>
+                        <p>Calculate Reynolds number, pressure drop, flow rate, and head loss for pipe flow and channels.</p>
+                        <div class="card-tags">
+                            <span class="tag">Fluids</span>
+                            <span class="tag">Pipes</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Reynolds number</span>
+                            <span><i class="fas fa-check"></i> Pressure drop</span>
+                            <span><i class="fas fa-check"></i> Flow regimes</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="unit-converter.html" class="calculator-card" data-keywords="unit converter si imperial engineering units">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Unit Converter</h3>
+                        <p>Comprehensive unit converter for all engineering quantities. SI to Imperial and vice versa.</p>
+                        <div class="card-tags">
+                            <span class="tag">Utility</span>
+                            <span class="tag">Quick</span>
+                        </div>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> 20+ categories</span>
+                            <span><i class="fas fa-check"></i> Engineering units</span>
+                            <span><i class="fas fa-check"></i> Real-time</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="section-header-center">
+                <h2>Popular Right Now</h2>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-item">
                     <i class="fas fa-ruler-horizontal"></i>
+                    <span>Simply Supported Beam</span>
                 </div>
-                <div class="section-title">
-                    <h2>Beam Deflection Calculator</h2>
-                    <p>Calculate deflection, stress, and reactions for simply supported beams with point loads</p>
+                <div class="featured-item">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>Cantilever Load</span>
                 </div>
-            </div>
-
-            <div class="calc-grid">
-                <div class="input-panel">
-                    <h3>Input Parameters</h3>
-                    
-                    <div class="input-group">
-                        <label for="beam-length">Beam Length (L)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="beam-length" placeholder="2.0" step="0.01">
-                            <select id="beam-length-unit">
-                                <option value="m">m</option>
-                                <option value="mm">mm</option>
-                                <option value="ft">ft</option>
-                                <option value="in">in</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="beam-load">Point Load (P)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="beam-load" placeholder="1000" step="0.1">
-                            <select id="beam-load-unit">
-                                <option value="N">N</option>
-                                <option value="kN">kN</option>
-                                <option value="lbf">lbf</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="load-position">Load Position (a)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="load-position" placeholder="1.0" step="0.01">
-                            <span class="unit-label">m from left</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="beam-material">Material</label>
-                        <select id="beam-material" class="full-width">
-                            <option value="steel">Steel (E = 200 GPa)</option>
-                            <option value="aluminum">Aluminum (E = 69 GPa)</option>
-                            <option value="titanium">Titanium (E = 116 GPa)</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group" id="custom-e-group" style="display: none;">
-                        <label for="custom-e">Young's Modulus (E)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="custom-e" placeholder="200" step="0.1">
-                            <span class="unit-label">GPa</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="beam-shape">Cross Section</label>
-                        <select id="beam-shape" class="full-width">
-                            <option value="rectangular">Rectangular</option>
-                            <option value="circular">Circular</option>
-                            <option value="h-beam">H-Beam / I-Beam</option>
-                        </select>
-                    </div>
-
-                    <div id="rectangular-dims" class="dim-group">
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="beam-width">Width (b)</label>
-                                <div class="input-wrapper">
-                                    <input type="number" id="beam-width" placeholder="50" step="0.1">
-                                    <span class="unit-label">mm</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label for="beam-height">Height (h)</label>
-                                <div class="input-wrapper">
-                                    <input type="number" id="beam-height" placeholder="100" step="0.1">
-                                    <span class="unit-label">mm</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="circular-dims" class="dim-group" style="display: none;">
-                        <div class="input-group">
-                            <label for="beam-diameter">Diameter (d)</label>
-                            <div class="input-wrapper">
-                                <input type="number" id="beam-diameter" placeholder="50" step="0.1">
-                                <span class="unit-label">mm</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="calc-btn" onclick="calculateBeam()">
-                        <i class="fas fa-calculator"></i> Calculate
-                    </button>
+                <div class="featured-item">
+                    <i class="fas fa-compress-arrows-alt"></i>
+                    <span>Axial Stress</span>
                 </div>
-
-                <div class="results-panel">
-                    <h3>Results</h3>
-                    
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-arrows-alt-v"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Maximum Deflection</span>
-                            <span class="result-value" id="max-deflection">-</span>
-                            <span class="result-unit" id="deflection-unit">mm</span>
-                        </div>
-                    </div>
-
-                    <div class="result-card">
-                        <div class="result-icon stress">
-                            <i class="fas fa-compress-arrows-alt"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Maximum Stress</span>
-                            <span class="result-value" id="max-stress">-</span>
-                            <span class="result-unit" id="stress-unit">MPa</span>
-                        </div>
-                    </div>
-
-                    <div class="result-card">
-                        <div class="result-icon reaction">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Reaction at A</span>
-                            <span class="result-value" id="reaction-a">-</span>
-                            <span class="result-unit" id="reaction-a-unit">N</span>
-                        </div>
-                    </div>
-
-                    <div class="result-card">
-                        <div class="result-icon reaction">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Reaction at B</span>
-                            <span class="result-value" id="reaction-b">-</span>
-                            <span class="result-unit" id="reaction-b-unit">N</span>
-                        </div>
-                    </div>
-
-                    <div class="formula-box">
-                        <h4><i class="fas fa-square-root-alt"></i> Formula Used</h4>
-                        <p id="beam-formula">δ = (P·a²·b²) / (3·E·I·L)</p>
-                        <p class="formula-desc">Simply supported beam with point load P at distance a from support A</p>
-                    </div>
+                <div class="featured-item">
+                    <i class="fas fa-circle"></i>
+                    <span>Circular Section</span>
+                </div>
+                <div class="featured-item">
+                    <i class="fas fa-square"></i>
+                    <span>Rectangular Section</span>
+                </div>
+                <div class="featured-item">
+                    <i class="fas fa-i-cursor"></i>
+                    <span>I-Beam Properties</span>
                 </div>
             </div>
         </section>
 
-        <!-- Stress Analysis -->
-        <section id="stress" class="calculator-section">
-            <div class="section-header">
-                <div class="section-icon stress">
-                    <i class="fas fa-compress-alt"></i>
-                </div>
-                <div class="section-title">
-                    <h2>Stress Analysis Calculator</h2>
-                    <p>Calculate normal stress, shear stress, and factor of safety</p>
-                </div>
+        <section class="why-section">
+            <div class="section-header-center">
+                <h2>Why Use EngineeringCalc?</h2>
             </div>
-
-            <div class="calc-grid">
-                <div class="input-panel">
-                    <h3>Input Parameters</h3>
-                    
-                    <div class="input-group">
-                        <label for="force-type">Loading Type</label>
-                        <select id="force-type" class="full-width" onchange="updateStressInputs()">
-                            <option value="axial">Axial Tension/Compression</option>
-                            <option value="bending">Bending</option>
-                            <option value="torsion">Torsion</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="stress-force">Force / Moment / Torque</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="stress-force" placeholder="10000" step="0.1">
-                            <select id="stress-force-unit">
-                                <option value="N">N</option>
-                                <option value="kN">kN</option>
-                                <option value="Nm">N·m</option>
-                                <option value="Nmm">N·mm</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="input-group" id="moment-arm-group" style="display: none;">
-                        <label for="moment-arm">Moment Arm</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="moment-arm" placeholder="0.5" step="0.01">
-                            <span class="unit-label">m</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="stress-area">Cross-Sectional Area</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="stress-area" placeholder="100" step="0.1">
-                            <select id="stress-area-unit">
-                                <option value="mm2">mm²</option>
-                                <option value="m2">m²</option>
-                                <option value="cm2">cm²</option>
-                                <option value="in2">in²</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="input-group" id="section-modulus-group" style="display: none;">
-                        <label for="section-modulus">Section Modulus (Z)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="section-modulus" placeholder="1000" step="0.1">
-                            <span class="unit-label">mm³</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="yield-strength">Yield Strength (σy)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="yield-strength" placeholder="250" step="0.1">
-                            <span class="unit-label">MPa</span>
-                        </div>
-                    </div>
-
-                    <button class="calc-btn" onclick="calculateStress()">
-                        <i class="fas fa-calculator"></i> Calculate Stress
-                    </button>
+            <div class="why-grid">
+                <div class="why-item">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Accurate Results</h3>
+                    <p>All calculations use standard engineering formulas and material properties from authoritative sources.</p>
                 </div>
-
-                <div class="results-panel">
-                    <h3>Results</h3>
-                    
-                    <div class="result-card">
-                        <div class="result-icon stress">
-                            <i class="fas fa-compress-arrows-alt"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Calculated Stress</span>
-                            <span class="result-value" id="calculated-stress">-</span>
-                            <span class="result-unit">MPa</span>
-                        </div>
-                    </div>
-
-                    <div class="result-card">
-                        <div class="result-icon" id="fos-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Factor of Safety</span>
-                            <span class="result-value" id="factor-safety">-</span>
-                            <span class="result-status" id="safety-status"></span>
-                        </div>
-                    </div>
-
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div class="result-content">
-                            <span class="result-label">Utilization</span>
-                            <span class="result-value" id="utilization">-</span>
-                            <span class="result-unit">%</span>
-                        </div>
-                    </div>
-
-                    <div class="formula-box">
-                        <h4><i class="fas fa-square-root-alt"></i> Formula Used</h4>
-                        <p id="stress-formula">σ = F / A</p>
-                        <p class="formula-desc">Normal stress for axial loading</p>
-                    </div>
+                <div class="why-item">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Instant Calculations</h3>
+                    <p>No waiting, no loading screens. Real-time calculations as you type.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Unit Converter -->
-        <section id="units" class="calculator-section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-exchange-alt"></i>
+                <div class="why-item">
+                    <i class="fas fa-eye"></i>
+                    <h3>Visual Diagrams</h3>
+                    <p>See beam diagrams, load distributions, and results plotted on clear graphs.</p>
                 </div>
-                <div class="section-title">
-                    <h2>Engineering Unit Converter</h2>
-                    <p>Convert between SI and Imperial units commonly used in mechanical engineering</p>
+                <div class="why-item">
+                    <i class="fas fa-moon"></i>
+                    <h3>Dark Mode</h3>
+                    <p>Easy on the eyes with a beautiful dark theme for late-night study sessions.</p>
                 </div>
-            </div>
-
-            <div class="converter-grid">
-                <div class="converter-card">
-                    <h3><i class="fas fa-ruler"></i> Length</h3>
-                    <div class="converter-inputs">
-                        <div class="input-group">
-                            <input type="number" id="length-input" placeholder="1" oninput="convertUnits('length')">
-                            <select id="length-from" onchange="convertUnits('length')">
-                                <option value="m">m</option>
-                                <option value="mm">mm</option>
-                                <option value="km">km</option>
-                                <option value="ft">ft</option>
-                                <option value="in">in</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-arrow-right converter-arrow"></i>
-                        <div class="input-group">
-                            <input type="number" id="length-output" readonly>
-                            <select id="length-to" onchange="convertUnits('length')">
-                                <option value="ft">ft</option>
-                                <option value="m">m</option>
-                                <option value="mm">mm</option>
-                                <option value="km">km</option>
-                                <option value="in">in</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="why-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on your phone, tablet, or desktop. Calculate anywhere.</p>
                 </div>
-
-                <div class="converter-card">
-                    <h3><i class="fas fa-weight-hanging"></i> Force</h3>
-                    <div class="converter-inputs">
-                        <div class="input-group">
-                            <input type="number" id="force-input" placeholder="1" oninput="convertUnits('force')">
-                            <select id="force-from" onchange="convertUnits('force')">
-                                <option value="N">N</option>
-                                <option value="kN">kN</option>
-                                <option value="lbf">lbf</option>
-                                <option value="kgf">kgf</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-arrow-right converter-arrow"></i>
-                        <div class="input-group">
-                            <input type="number" id="force-output" readonly>
-                            <select id="force-to" onchange="convertUnits('force')">
-                                <option value="lbf">lbf</option>
-                                <option value="N">N</option>
-                                <option value="kN">kN</option>
-                                <option value="kgf">kgf</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="converter-card">
-                    <h3><i class="fas fa-compress"></i> Pressure / Stress</h3>
-                    <div class="converter-inputs">
-                        <div class="input-group">
-                            <input type="number" id="pressure-input" placeholder="1" oninput="convertUnits('pressure')">
-                            <select id="pressure-from" onchange="convertUnits('pressure')">
-                                <option value="Pa">Pa</option>
-                                <option value="kPa">kPa</option>
-                                <option value="MPa">MPa</option>
-                                <option value="GPa">GPa</option>
-                                <option value="psi">psi</option>
-                                <option value="ksi">ksi</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-arrow-right converter-arrow"></i>
-                        <div class="input-group">
-                            <input type="number" id="pressure-output" readonly>
-                            <select id="pressure-to" onchange="convertUnits('pressure')">
-                                <option value="psi">psi</option>
-                                <option value="Pa">Pa</option>
-                                <option value="kPa">kPa</option>
-                                <option value="MPa">MPa</option>
-                                <option value="GPa">GPa</option>
-                                <option value="ksi">ksi</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="converter-card">
-                    <h3><i class="fas fa-cube"></i> Volume</h3>
-                    <div class="converter-inputs">
-                        <div class="input-group">
-                            <input type="number" id="volume-input" placeholder="1" oninput="convertUnits('volume')">
-                            <select id="volume-from" onchange="convertUnits('volume')">
-                                <option value="m3">m³</option>
-                                <option value="L">L</option>
-                                <option value="mL">mL</option>
-                                <option value="gal">gal</option>
-                                <option value="ft3">ft³</option>
-                                <option value="in3">in³</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-arrow-right converter-arrow"></i>
-                        <div class="input-group">
-                            <input type="number" id="volume-output" readonly>
-                            <select id="volume-to" onchange="convertUnits('volume')">
-                                <option value="gal">gal</option>
-                                <option value="m3">m³</option>
-                                <option value="L">L</option>
-                                <option value="mL">mL</option>
-                                <option value="ft3">ft³</option>
-                                <option value="in3">in³</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="converter-card">
-                    <h3><i class="fas fa-thermometer-half"></i> Temperature</h3>
-                    <div class="converter-inputs">
-                        <div class="input-group">
-                            <input type="number" id="temp-input" placeholder="20" oninput="convertUnits('temp')">
-                            <select id="temp-from" onchange="convertUnits('temp')">
-                                <option value="C">°C</option>
-                                <option value="F">°F</option>
-                                <option value="K">K</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-arrow-right converter-arrow"></i>
-                        <div class="input-group">
-                            <input type="number" id="temp-output" readonly>
-                            <select id="temp-to" onchange="convertUnits('temp')">
-                                <option value="F">°F</option>
-                                <option value="C">°C</option>
-                                <option value="K">K</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="converter-card">
-                    <h3><i class="fas fa-tachometer-alt"></i> Power</h3>
-                    <div class="converter-inputs">
-                        <div class="input-group">
-                            <input type="number" id="power-input" placeholder="1" oninput="convertUnits('power')">
-                            <select id="power-from" onchange="convertUnits('power')">
-                                <option value="W">W</option>
-                                <option value="kW">kW</option>
-                                <option value="MW">MW</option>
-                                <option value="hp">hp</option>
-                                <option value="hp-e">hp (electrical)</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-arrow-right converter-arrow"></i>
-                        <div class="input-group">
-                            <input type="number" id="power-output" readonly>
-                            <select id="power-to" onchange="convertUnits('power')">
-                                <option value="hp">hp</option>
-                                <option value="W">W</option>
-                                <option value="kW">kW</option>
-                                <option value="MW">MW</option>
-                                <option value="hp-e">hp (electrical)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Materials Database -->
-        <section id="materials" class="calculator-section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="section-title">
-                    <h2>Material Properties Database</h2>
-                    <p>Reference data for common engineering materials</p>
-                </div>
-            </div>
-
-            <div class="materials-container">
-                <div class="materials-filter">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="metal">Metals</button>
-                    <button class="filter-btn" data-filter="plastic">Plastics</button>
-                    <button class="filter-btn" data-filter="composite">Composites</button>
-                </div>
-
-                <div class="materials-grid" id="materials-grid">
-                    <!-- Materials will be populated by JavaScript -->
+                <div class="why-item">
+                    <i class="fas fa-lock"></i>
+                    <h3>No Signup Required</h3>
+                    <p>100% free with no account creation. Just open and start calculating.</p>
                 </div>
             </div>
         </section>
@@ -543,16 +345,17 @@
                 <i class="fas fa-drafting-compass"></i>
                 <span>EngineeringCalc</span>
             </div>
-            <p class="footer-text">Built for mechanical engineers and students. Free forever.</p>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
             <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-                <a href="#">Privacy</a>
+                <a href="about.html">About</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="contact.html">Contact</a>
             </div>
-            <p class="copyright">© 2025 EngineeringCalc. Open source engineering tools.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
         </div>
     </footer>
 
-    <script src="calculators.js"></script>
+    <script src="theme.js"></script>
+    <script src="search.js"></script>
 </body>
 </html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beam Deflection Calculator | Simply Supported & Cantilever Beams</title>
+    <meta name="description" content="Calculate beam deflection, bending moment, shear force, and reactions for simply supported, cantilever, and fixed beams. Multiple load types with interactive diagrams.">
+    <meta name="keywords" content="beam deflection calculator, bending moment calculator, simply supported beam, cantilever beam, beam analysis">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="calculator-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html" class="active"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="inertia-calculator.html"><i class="fas fa-sync-alt"></i> Mass Moment of Inertia</a>
+                        <a href="torque-calculator.html"><i class="fas fa-redo"></i> Torque & Power</a>
+                        <a href="gear-calculator.html"><i class="fas fa-cog"></i> Gear Design</a>
+                        <a href="spring-calculator.html"><i class="fas fa-compress"></i> Spring Design</a>
+                        <a href="thermal-calculator.html"><i class="fas fa-thermometer-half"></i> Thermal Expansion</a>
+                        <a href="fluid-calculator.html"><i class="fas fa-tint"></i> Fluid Mechanics</a>
+                        <a href="unit-converter.html"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Beam Deflection Calculator</span>
+                </div>
+                <h1>Beam Deflection Calculator</h1>
+                <p>Calculate deflection, slope, reactions, shear force, and bending moment for various beam configurations and load types. Includes interactive diagrams.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="calculator-layout">
+                <div class="calculator-inputs">
+                    <div class="input-section">
+                        <h2><i class="fas fa-cog"></i> Beam Configuration</h2>
+                        
+                        <div class="input-group">
+                            <label for="beam-type">Beam Type</label>
+                            <select id="beam-type" class="full-width" onchange="updateBeamConfiguration()">
+                                <option value="simply-supported">Simply Supported</option>
+                                <option value="cantilever">Cantilever (Fixed at A)</option>
+                                <option value="fixed-fixed">Fixed-Fixed</option>
+                                <option value="overhang">Overhanging</option>
+                                <option value="propped-cantilever">Propped Cantilever</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="beam-length">Beam Length (L)</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="beam-length" placeholder="2.0" step="0.01" value="2.0">
+                                <select id="beam-length-unit">
+                                    <option value="m">m</option>
+                                    <option value="mm">mm</option>
+                                    <option value="ft">ft</option>
+                                    <option value="in">in</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="beam-material">Material</label>
+                            <select id="beam-material" class="full-width" onchange="updateMaterial()">
+                                <option value="steel-mild">Mild Steel (E = 200 GPa)</option>
+                                <option value="steel-stainless">Stainless Steel (E = 190 GPa)</option>
+                                <option value="aluminum-6061">Aluminum 6061-T6 (E = 69 GPa)</option>
+                                <option value="aluminum-7075">Aluminum 7075-T6 (E = 71.7 GPa)</option>
+                                <option value="titanium">Titanium Ti-6Al-4V (E = 116 GPa)</option>
+                                <option value="brass">Brass (E = 100 GPa)</option>
+                                <option value="custom">Custom Material...</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" id="custom-e-group" style="display: none;">
+                            <label for="custom-e">Young's Modulus (E)</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="custom-e" placeholder="200" step="0.1">
+                                <span class="unit-label">GPa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h2><i class="fas fa-shapes"></i> Cross Section</h2>
+                        
+                        <div class="input-group">
+                            <label for="section-type">Section Type</label>
+                            <select id="section-type" class="full-width" onchange="updateSectionInputs()">
+                                <option value="rectangular">Rectangular</option>
+                                <option value="circular">Circular</option>
+                                <option value="hollow-circle">Hollow Circle</option>
+                                <option value="i-beam">I-Beam / H-Beam</option>
+                                <option value="t-section">T-Section</option>
+                                <option value="channel">Channel (C-Shape)</option>
+                                <option value="custom-i">Custom I Value...</option>
+                            </select>
+                        </div>
+
+                        <!-- Rectangular Section -->
+                        <div id="rectangular-inputs" class="section-inputs">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="rect-width">Width (b)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="rect-width" placeholder="50" step="0.1" value="50">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="rect-height">Height (h)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="rect-height" placeholder="100" step="0.1" value="100">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Circular Section -->
+                        <div id="circular-inputs" class="section-inputs" style="display: none;">
+                            <div class="input-group">
+                                <label for="circle-diameter">Diameter (d)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="circle-diameter" placeholder="50" step="0.1">
+                                    <span class="unit-label">mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hollow Circle -->
+                        <div id="hollow-circle-inputs" class="section-inputs" style="display: none;">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="hollow-outer">Outer Diameter (D)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="hollow-outer" placeholder="60" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="hollow-inner">Inner Diameter (d)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="hollow-inner" placeholder="40" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- I-Beam -->
+                        <div id="i-beam-inputs" class="section-inputs" style="display: none;">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="ibeam-flange-width">Flange Width (bf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-flange-width" placeholder="100" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="ibeam-flange-thick">Flange Thick (tf)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-flange-thick" placeholder="10" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="ibeam-web-height">Web Height (hw)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-web-height" placeholder="80" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="ibeam-web-thick">Web Thick (tw)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="ibeam-web-thick" placeholder="6" step="0.1">
+                                        <span class="unit-label">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom I -->
+                        <div id="custom-i-inputs" class="section-inputs" style="display: none;">
+                            <div class="input-group">
+                                <label for="custom-i-value">Moment of Inertia (I)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="custom-i-value" placeholder="4.17" step="0.001">
+                                    <select>
+                                        <option value="e-6">× 10⁻⁶ m⁴</option>
+                                        <option value="e-4">× 10⁻⁴ m⁴</option>
+                                        <option value="mm4">mm⁴</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="custom-z-value">Section Modulus (Z)</label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="custom-z-value" placeholder="83.3" step="0.1">
+                                    <select>
+                                        <option value="e-6">× 10⁻⁶ m³</option>
+                                        <option value="mm3">mm³</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-preview" id="section-preview">
+                            <canvas id="section-canvas" width="200" height="150"></canvas>
+                            <div class="section-properties-preview">
+                                <p><strong>I = </strong><span id="preview-i">-</span></p>
+                                <p><strong>Z = </strong><span id="preview-z">-</span></p>
+                                <p><strong>A = </strong><span id="preview-a">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h2><i class="fas fa-weight-hanging"></i> Loads</h2>
+                        
+                        <div id="loads-container">
+                            <div class="load-item" data-load-id="1">
+                                <div class="load-header">
+                                    <span class="load-number">Load 1</span>
+                                    <button class="load-remove" onclick="removeLoad(1)" style="display: none;"><i class="fas fa-times"></i></button>
+                                </div>
+                                <div class="input-group">
+                                    <label>Load Type</label>
+                                    <select class="load-type full-width" onchange="updateLoadInputs(1)">
+                                        <option value="point">Point Load</option>
+                                        <option value="udl">Uniformly Distributed Load</option>
+                                        <option value="moment">Applied Moment</option>
+                                        <option value="triangle">Triangular Distributed Load</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="load-inputs" id="load-inputs-1">
+                                    <div class="input-row">
+                                        <div class="input-group">
+                                            <label>Magnitude (P)</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" class="load-magnitude" placeholder="1000" step="0.1" value="1000">
+                                                <select class="load-magnitude-unit">
+                                                    <option value="N">N</option>
+                                                    <option value="kN">kN</option>
+                                                    <option value="lbf">lbf</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Position (a)</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" class="load-position" placeholder="1.0" step="0.01" value="1.0">
+                                                <span class="unit-label">m</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="add-load-btn" onclick="addLoad()">
+                            <i class="fas fa-plus"></i> Add Another Load
+                        </button>
+                    </div>
+
+                    <button class="calc-btn primary" onclick="calculateBeam()">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="results-tabs">
+                        <button class="tab-btn active" onclick="switchTab('results')">Results</button>
+                        <button class="tab-btn" onclick="switchTab('diagrams')">Diagrams</button>
+                        <button class="tab-btn" onclick="switchTab('equations')">Equations</button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-results">
+                        <div class="results-grid">
+                            <div class="result-card large">
+                                <div class="result-icon">
+                                    <i class="fas fa-arrows-alt-v"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Maximum Deflection</span>
+                                    <span class="result-value" id="max-deflection">-</span>
+                                    <span class="result-unit">mm</span>
+                                    <span class="result-location" id="deflection-location">at x = -</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-angle-right"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Max Slope</span>
+                                    <span class="result-value" id="max-slope">-</span>
+                                    <span class="result-unit">rad</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon stress">
+                                    <i class="fas fa-compress-arrows-alt"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Max Bending Stress</span>
+                                    <span class="result-value" id="max-bending-stress">-</span>
+                                    <span class="result-unit">MPa</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Reaction at A (RA)</span>
+                                    <span class="result-value" id="reaction-a">-</span>
+                                    <span class="result-unit">N</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Reaction at B (RB)</span>
+                                    <span class="result-value" id="reaction-b">-</span>
+                                    <span class="result-unit">N</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-redo"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Moment at A (MA)</span>
+                                    <span class="result-value" id="moment-a">-</span>
+                                    <span class="result-unit">N·m</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-content">
+                                    <span class="result-label">Moment at B (MB)</span>
+                                    <span class="result-value" id="moment-b">-</span>
+                                    <span class="result-unit">N·m</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Max Moment</span>
+                                    <span class="result-value" id="max-moment">-</span>
+                                    <span class="result-unit">N·m</span>
+                                    <span class="result-location" id="moment-location">at x = -</span>
+                                </div>
+                            </div>
+
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="result-content">
+                                    <span class="result-label">Factor of Safety</span>
+                                    <span class="result-value" id="factor-safety">-</span>
+                                    <span class="result-status" id="safety-status"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-properties-result">
+                            <h3>Section Properties Used</h3>
+                            <div class="props-grid">
+                                <div><strong>I = </strong><span id="result-i">-</span> m⁴</div>
+                                <div><strong>Z = </strong><span id="result-z">-</span> m³</div>
+                                <div><strong>E = </strong><span id="result-e">-</span> GPa</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-diagrams">
+                        <div class="diagram-container">
+                            <h3>Beam Loading Diagram</h3>
+                            <canvas id="beam-diagram" width="700" height="200"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>Shear Force Diagram</h3>
+                            <canvas id="shear-chart" width="700" height="250"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>Bending Moment Diagram</h3>
+                            <canvas id="moment-chart" width="700" height="250"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>Deflection Curve</h3>
+                            <canvas id="deflection-chart" width="700" height="250"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-equations">
+                        <div class="equations-list">
+                            <h3>Formulas Used</h3>
+                            <div class="equation-block">
+                                <h4>Deflection Equation</h4>
+                                <p class="math">EI·d²y/dx² = M(x)</p>
+                                <p class="desc">Governing differential equation for beam bending</p>
+                            </div>
+                            <div class="equation-block">
+                                <h4>Bending Stress</h4>
+                                <p class="math">σ = M·y / I = M / Z</p>
+                                <p class="desc">Maximum stress occurs at outer fiber (y = h/2)</p>
+                            </div>
+                            <div class="equation-block" id="specific-formula">
+                                <h4>Specific Solution</h4>
+                                <p class="math" id="formula-specific">-</p>
+                                <p class="desc" id="formula-desc">Based on your beam configuration and loading</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+    <script src="beam-calculator.js"></script>
+</body>
+</html>
