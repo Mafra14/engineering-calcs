@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluid Mechanics Calculator | Reynolds Number & Pressure Drop</title>
+    <meta name="description" content="Calculate Reynolds number, pressure drop, flow rate, and head loss for pipe flow and channels.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="unit-converter.html"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Fluid Mechanics Calculator</span>
+                </div>
+                <h1>Fluid Mechanics Calculator</h1>
+                <p>Calculate Reynolds number, pressure drop, flow rate, and head loss for pipe flow.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="coming-soon-container">
+                <div class="coming-soon-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <h2>Coming Soon!</h2>
+                <p>This calculator is currently under development.</p>
+                <a href="index.html" class="btn-primary">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+</body>
+</html>

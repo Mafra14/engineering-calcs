@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | EngineeringCalc</title>
+    <meta name="description" content="About EngineeringCalc - Free professional engineering calculators for students and professionals.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="unit-converter.html"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html">Materials</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <h1>About EngineeringCalc</h1>
+                <p>Free professional engineering calculators built for students and professionals.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="about-content">
+                <div class="about-section">
+                    <h2>Our Mission</h2>
+                    <p>EngineeringCalc provides free, accurate, and easy-to-use engineering calculators for mechanical engineers and students. We believe quality engineering tools should be accessible to everyone.</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>Features</h2>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Accurate calculations based on standard engineering formulas</li>
+                        <li><i class="fas fa-check"></i> Clean, modern interface optimized for mobile and desktop</li>
+                        <li><i class="fas fa-check"></i> Dark mode for late-night study sessions</li>
+                        <li><i class="fas fa-check"></i> No signup required - completely free</li>
+                        <li><i class="fas fa-check"></i> Fast, real-time calculations</li>
+                    </ul>
+                </div>
+
+                <div class="about-section">
+                    <h2>Calculators Available</h2>
+                    <div class="calculators-list">
+                        <span class="calc-tag ready"><i class="fas fa-check-circle"></i> Beam Deflection</span>
+                        <span class="calc-tag ready"><i class="fas fa-check-circle"></i> Stress Analysis</span>
+                        <span class="calc-tag ready"><i class="fas fa-check-circle"></i> Section Properties</span>
+                        <span class="calc-tag ready"><i class="fas fa-check-circle"></i> Unit Converter</span>
+                        <span class="calc-tag"><i class="fas fa-clock"></i> Mass Moment of Inertia</span>
+                        <span class="calc-tag"><i class="fas fa-clock"></i> Torque & Power</span>
+                        <span class="calc-tag"><i class="fas fa-clock"></i> Gear Design</span>
+                        <span class="calc-tag"><i class="fas fa-clock"></i> Spring Design</span>
+                        <span class="calc-tag"><i class="fas fa-clock"></i> Thermal Expansion</span>
+                        <span class="calc-tag"><i class="fas fa-clock"></i> Fluid Mechanics</span>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h2>Contact</h2>
+                    <p>Have suggestions or found a bug? Reach out to us!</p>
+                    <a href="mailto:contact@engineeringcalc.com" class="btn-primary"><i class="fas fa-envelope"></i> Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+</body>
+</html>

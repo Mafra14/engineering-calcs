@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials Database | Engineering Material Properties</title>
+    <meta name="description" content="Comprehensive database of engineering material properties including steel, aluminum, titanium, and plastics. Density, Young's modulus, yield strength, and more.">
+    <meta name="keywords" content="material properties, engineering materials, steel properties, aluminum properties, youngs modulus">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-drafting-compass"></i>
+            <span>EngineeringCalc</span>
+        </a>
+        <div class="nav-links-container">
+            <ul class="nav-links">
+                <li class="has-dropdown">
+                    <a href="index.html#calculators">Calculators <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="beam-calculator.html"><i class="fas fa-ruler-horizontal"></i> Beam Deflection</a>
+                        <a href="stress-calculator.html"><i class="fas fa-compress-arrows-alt"></i> Stress Analysis</a>
+                        <a href="section-properties.html"><i class="fas fa-shapes"></i> Section Properties</a>
+                        <a href="unit-converter.html"><i class="fas fa-exchange-alt"></i> Unit Converter</a>
+                    </div>
+                </li>
+                <li><a href="materials-database.html" class="active">Materials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calculator-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Materials Database</span>
+                </div>
+                <h1>Engineering Materials Database</h1>
+                <p>Comprehensive material properties for mechanical engineering calculations. Density, Young's modulus, yield strength, and more.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="materials-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="materialSearch" placeholder="Search materials (e.g., 'steel', 'aluminum')...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="metal">Metals</button>
+                    <button class="filter-btn" data-filter="plastic">Plastics</button>
+                    <button class="filter-btn" data-filter="composite">Composites</button>
+                </div>
+            </div>
+
+            <div class="materials-table-container">
+                <table class="materials-table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Type</th>
+                            <th>Density<br><small>kg/m³</small></th>
+                            <th>E-Modulus<br><small>GPa</small></th>
+                            <th>Yield Strength<br><small>MPa</small></th>
+                            <th>Ultimate Strength<br><small>MPa</small></th>
+                            <th>Poisson's Ratio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="materials-tbody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-drafting-compass"></i>
+                <span>EngineeringCalc</span>
+            </div>
+            <p class="footer-text">Free professional engineering calculators for students and professionals.</p>
+            <p class="copyright">© 2025 EngineeringCalc. Built for engineers, by engineers.</p>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+    <script>
+        const materials = [
+            { name: "Mild Steel", type: "metal", density: 7850, E: 200, yield: 250, ultimate: 400, poisson: 0.30 },
+            { name: "Stainless Steel 304", type: "metal", density: 8000, E: 190, yield: 215, ultimate: 505, poisson: 0.30 },
+            { name: "Aluminum 6061-T6", type: "metal", density: 2700, E: 69, yield: 276, ultimate: 310, poisson: 0.33 },
+            { name: "Aluminum 7075-T6", type: "metal", density: 2810, E: 71.7, yield: 503, ultimate: 572, poisson: 0.33 },
+            { name: "Titanium Ti-6Al-4V", type: "metal", density: 4430, E: 116, yield: 880, ultimate: 950, poisson: 0.31 },
+            { name: "Brass", type: "metal", density: 8530, E: 100, yield: 95, ultimate: 340, poisson: 0.35 },
+            { name: "Copper", type: "metal", density: 8960, E: 117, yield: 70, ultimate: 220, poisson: 0.34 },
+            { name: "Cast Iron", type: "metal", density: 7200, E: 180, yield: 130, ultimate: 200, poisson: 0.27 },
+            { name: "ABS Plastic", type: "plastic", density: 1050, E: 2.3, yield: 30, ultimate: 40, poisson: 0.35 },
+            { name: "Nylon 6/6", type: "plastic", density: 1140, E: 2.8, yield: 60, ultimate: 75, poisson: 0.41 },
+            { name: "Polycarbonate", type: "plastic", density: 1200, E: 2.4, yield: 62, ultimate: 70, poisson: 0.37 },
+            { name: "PTFE (Teflon)", type: "plastic", density: 2200, E: 0.5, yield: 15, ultimate: 25, poisson: 0.46 },
+            { name: "PVC", type: "plastic", density: 1400, E: 3.0, yield: 35, ultimate: 50, poisson: 0.38 },
+            { name: "Carbon Fiber T300", type: "composite", density: 1600, E: 140, yield: 1500, ultimate: 1800, poisson: 0.30 },
+            { name: "Fiberglass E-Glass", type: "composite", density: 1850, E: 72, yield: 200, ultimate: 340, poisson: 0.25 }
+        ];
+
+        function renderMaterials(filter = 'all', search = '') {
+            const tbody = document.getElementById('materials-tbody');
+            tbody.innerHTML = '';
+
+            const filtered = materials.filter(m => {
+                const matchesFilter = filter === 'all' || m.type === filter;
+                const matchesSearch = m.name.toLowerCase().includes(search.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            filtered.forEach(m => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${m.name}</strong></td>
+                    <td><span class="material-type-badge ${m.type}">${m.type}</span></td>
+                    <td>${m.density.toLocaleString()}</td>
+                    <td>${m.E}</td>
+                    <td>${m.yield}</td>
+                    <td>${m.ultimate}</td>
+                    <td>${m.poisson}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const search = document.getElementById('materialSearch').value;
+                renderMaterials(btn.dataset.filter, search);
+            });
+        });
+
+        // Search
+        document.getElementById('materialSearch').addEventListener('input', (e) => {
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            renderMaterials(activeFilter, e.target.value);
+        });
+
+        // Initialize
+        renderMaterials();
+    </script>
+</body>
+</html>
