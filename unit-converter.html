@@ -75,7 +75,9 @@
                             </select>
                         </div>
                         
-                        <div class="equals-sign"><i class="fas fa-equals"></i></div>
+                        <button class="swap-btn" onclick="swapUnits()" title="Swap units">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
                         
                         <div class="output-section-converter">
                             <input type="text" id="convert-output" readonly value="3.28084">
@@ -256,6 +258,16 @@
         document.getElementById('convert-input').addEventListener('input', convert);
         document.getElementById('convert-from').addEventListener('change', convert);
         document.getElementById('convert-to').addEventListener('change', convert);
+
+        // Swap units function
+        function swapUnits() {
+            const fromSelect = document.getElementById('convert-from');
+            const toSelect = document.getElementById('convert-to');
+            const temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+            convert();
+        }
 
         // Initialize
         updateCategory('length');
